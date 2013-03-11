@@ -1,0 +1,81 @@
+<!-- 游客功能 -->
+<div class='slide_div'>
+	<h3>{$Think.lang.right_6}</h3>
+	<select class='chooseLang'>
+		<option>{$Think.lang.right_6_1}</option>
+		<option value='1'>{$Think.lang.right_6_1_1}</option>
+		<option value='2'>{$Think.lang.right_6_1_2}</option>
+	</select>
+	<!-- <a class='chinese' href="?l=zh-cn">简体中文</a> 
+	<a class='english' href="?l=en-us">English</a></p>	 -->
+</div>
+
+<!-- 有关文章的分类 -->
+<div class='slide_div'>
+	<h3>{$Think.lang.right_1}</h3>
+	<ul class='slide_c'>
+		<volist name='cates_list' id='c_vo'>
+			<li class='icons s_c_l'>
+				<a href="{:U('Index/index/c_id')}/{$c_vo.id}">{$c_vo.category}<span class='s_c_s'>&nbsp;({$c_vo.count})</span></a>
+			</li>
+		</volist>
+	</ul>
+</div>
+
+<!-- 最近文章的回复 -->
+<div class='slide_div'>
+	<h3>{$Think.lang.right_2}</h3>
+	<ul class='slide_c'>	
+		<volist name='com_list' id='com_vo'>
+			<li class='icons s_c_l'>		
+				<div class='com_vo_name'>{$com_vo.name} Say:</div>
+				<p class='com_vo_content'><a href="{:U('View/index/b_id')}/{$com_vo.blogId}">{$com_vo.content|msubstr=###,0,25}</a></p>
+				<div class='com_vo_datetime'>{$com_vo.datetime|date='Y-m-d H:i:s',###}</div>
+			</li>
+		</volist>
+	</ul>
+</div>
+
+<!-- 标签  -->
+<div class='slide_div slide_tag_div'>
+	<h3>{$Think.lang.right_3}</h3>
+	<div class='tag_a_div'>
+		<volist name='tags_list' id='tags_vo'>
+			<a class='tag_a' href="{:U('Index/index/tags')}/{$tags_vo.tag|trim=###}">{$tags_vo.tag|trim=###}</a>
+		</volist>
+	</div>
+</div>
+
+
+<!-- 文章归档 -->
+<div class='clear'></div>
+<div class='slide_div'>
+	<h3>{$Think.lang.right_4}</h3>
+	<ul class='slide_c'>
+		<volist name='dateArchiveArr' id='archive_vo'>
+			<li class='icons s_c_l'>
+				<a  href="{:U('Index/index/date')}/{$archive_vo}">
+					<php>
+						$tmp = str_replace('-','/',$archive_vo);
+						echo $tmp;
+					</php>
+				</a>
+			</li>
+		</volist>
+	</ul>
+</div>
+
+<!-- 管理员 -->
+<div class='slide_div'>
+	<h3>{$Think.lang.right_5}</h3>
+	<div class='admin_div' >
+		<if condition = "$_SESSION['u_id'] neq null">
+			<a>{$Think.lang.right_5_1} : {$_SESSION['email']}</a>
+			<a href='__APP__/Index/post_article'>{$Think.lang.right_5_2} </a> 
+			<a href='__APP__/Index/logout'>{$Think.lang.right_5_3} </a> 
+		<else />
+			<a href='__APP__/Index/login'>{$Think.lang.right_5_4} </a> 
+		</if>
+		<a href='__APP__/Admin'>{$Think.lang.right_5_5} </a> 
+	</div>
+</div>

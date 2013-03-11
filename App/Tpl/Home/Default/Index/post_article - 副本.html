@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>发表文章&nbsp;|&nbsp;{$Think.config.WEB_TITLE}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+<script type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
+<script  type="text/javascript" src="__HOME__/Js/common.js"></script>
+<link rel="stylesheet" href="__ROOT__/Editor/themes/default/default.css" />
+<script type="text/javascript" src="__ROOT__/Editor/kindeditor-min.js"></script>
+<script type="text/javascript" src="__ROOT__/Editor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="__HOME__/Js/editor.js"></script>
+<script type="text/javascript" src="__HOME__/Js/UIDialog.js"></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+	//填充
+	fillBlank();
+
+	//创建新分类的弹出框
+	$('.c_cate').click(function(){
+		var c_content = $(".c_content").html();
+		//删除Body中的内容，只保留弹出框里面的内容，不然会有2个相同内容
+		$('div').remove(".c_content");
+		
+		$.UIDialog({
+			width	:	200,
+			title	:	'创建新分类',
+			content	:	c_content,
+			//弹出层打开后执行的函数
+			callOnOpen:function(){
+				//获得所有分类数据
+				$.post("__URL__/getAllCate",'',function(allCate){
+					var allCateObj = eval('('+allCate+')');
+					var ul_content = "<ul class='c_c'>";
+					for(i in allCateObj)
+					{
+						ul_content += "<li class='c_l'>";
+						ul_content += "<span class='c_c_1'>"+allCateObj[i].category+"</span>";
+						ul_content += "<a href='javascript:void(0);' rel='"+allCateObj[i].id+"' class='del_cate'>[删除]</a>";
+						ul_content += "<a href='javascript:void(0);' rel='"+allCateObj[i].id+"' class='edit_cate'>[编辑]</a>";
+						ul_content += "</li>";
+					}
+					ul_content += "</ul>";
+					//将分类数据append到弹出框中
+					$(ul_content).appendTo(".ui-dialog-body");						
+				});
+				
+				//创建新分类，ajax传输分类名称并插入数据库
+				$(".c_sub").click(function(){
+					var category = $("input[name='category']").val();
+					$.post("__URL__/insert_cate",{'category':category},function(data){
+						var dataObj = eval('('+data+')');
+						if(dataObj.success == 1)
+						{
+							//append新分类名到弹出框
+							var newLi = "<li class='c_l'>"+
+											"<span class='c_c_1'>"+dataObj.category+"</span>"+
+											"<a href='javascript:void(0);' class='del_cate'   rel="+dataObj.c_id+">[删除]</a>"+
+											"<a href='javascript:void(0);' class='edit_cate'  rel="+dataObj.c_id+">[编辑]</a>"+
+										"</li>";
+							$(newLi).appendTo(".c_c");
+							
+							//append新分类名到页面select并设置选中
+							$("option").removeAttr("selected");
+							//新创建的分类名进行选中
+							var option_content = "<option selected='selected' value="+dataObj.c_id+">"+dataObj.category+"</option>";
+							$(option_content).appendTo(".cate_select");	
+						}
+					})
+				});		
+
+				//绑定删除事件
+				$(".del_cate").live('click',function(){
+					var t = $(this);
+					var c_id = t.attr('rel');
+					if(confirm('确定删除该分类？'))
+					{
+						$.post("__URL__/del_cate",{"c_id":c_id},function(data){
+							var dataObj = eval('('+data+')');
+							if(dataObj.success == true)
+							{
+								//删除相应弹出框的数据
+								t.parent().remove();
+								//删除页面的option数据
+								$("option[value='"+dataObj.c_id+"']").remove();
+							}
+						});
+					}
+				});
+				
+				//绑定编辑事件
+				var category,c_id;
+				$('.edit_cate').live('click',function(){
+					var t = $(this);
+					c_id = t.attr('rel');
+					category = t.parent().find('span').html();
+					var replace_con =  "<span>"+
+										"<input type='text' value='"+category+"' name='c_id' class='form_input edit_ca'/>"+
+										"<input type='button' value='保存' class='form_sub edit_save'>"+
+										"<input type='button' value='取消' class='form_sub edit_not_save'>"+
+										"</span>";
+					//将文字替换为输入框
+					var c_con = t.parent().find('span').replaceWith(replace_con);					
+				});		
+				
+				//点击取消返回为文本框
+				$('.edit_not_save').live('click',function(){
+					$(this).parent().parent().find('span').replaceWith("<span class='c_c_1'>"+category+"</span>");
+				});
+				//点击保存，更新分类名
+				$('.edit_save').live('click',function(){
+					var t = $(this);
+					var newCate = t.parent().find('input:first').val();
+					$.post('__URL__/up_cate',{'c_id':c_id,'category':newCate},function(data){
+						//如果更新成功，则将option和弹出层都进行更新
+						if(data)
+						{
+							//更新弹出层
+							t.parent().replaceWith("<span class='c_c_1'>"+newCate+"</span>");
+							//更新页面的option数据
+							$("option").removeAttr("selected");
+							$("option[value='"+c_id+"']").replaceWith("<option selected='selected' value='"+c_id+"'>"+newCate+"</option>");
+							
+						}
+					})
+				});				
+			},
+			//弹出层关闭后执行的函数，因为前面删除了页面中的内容，所以我们在关闭的时候在把原来页面的内容添加进去
+			callOnClose:function(){
+				$("<div class='c_content'>"+c_content+"</div>").appendTo('body');
+			},		
+		})
+		//替换关闭文字为图片
+		//$(".ui-close").html("<img src='__HOME__/Images/close.png' />"); 
+	});
+	
+	
+	//标签相关js
+	$("#input_div").keydown(function(event){
+		if(event.keyCode == 32)
+		{
+			var val = $(this).val();
+			$(this).val('');
+			
+			if( $(".use_tag_li").length >= 5 )
+			{
+				alert("最多只能输入5个标签");
+			}
+			else
+			{
+				if(val == ' ' || val == '')
+				{
+					alert('不能输入空标签');
+				}
+				else
+				{
+					//添加进入ul
+					li_con = "<li class='use_tag_li'><span>"+val+"</span><a href='javascript:void(0);' class='del_tag'>×</a></li>";
+					$(".use_tag").append(li_con);
+					//把标签添加进#form
+					input_con = "<input type='hidden' name='tag[]' value='"+val+"'/>" ;
+					$('#form').append(input_con);
+					
+					//算出标签输入框的宽度为：tag_div宽度-use_tag宽度
+					var div_total_width = $(".tag_div").width();
+					var ul_total_width = $(".use_tag").width();
+					var input_width = div_total_width - ul_total_width;
+					$("#input_div").css({'width':input_width});
+				}
+			}
+		}
+	});
+	//点击叉叉删除标签
+	$('.del_tag').live('click',function(){
+		var tagVal = $(this).siblings('span').html();
+		//移除input hidden
+		$(this).parent().remove();
+		$("input[value='"+tagVal+"']").remove();
+	});
+	//点击标签使用该标签
+	$('.use_tag_a').click(function(){
+		var tagVal = $(this).html();
+		if( $(".use_tag_li").length >= 5 )
+		{
+			alert("最多只能输入5个标签");
+		}
+		else
+		{
+			var str = "<input type='hidden' value="+tagVal+" name='exist_tag[]'/>";
+			$("#form").append(str);
+			//添加进入ul
+			li_con = "<li class='use_tag_li'><span>"+tagVal+"</span><a href='javascript:void(0);' class='del_tag'>×</a></li>";
+			$(".use_tag").append(li_con);
+			
+			//算出标签输入框的宽度为：tag_div宽度-use_tag宽度
+			var div_total_width = $(".tag_div").width();
+			var ul_total_width = $(".use_tag").width();
+			var input_width = div_total_width - ul_total_width;
+			$("#input_div").css({'width':input_width});
+		}				
+	});
+});
+</script>
+</head>
+<body>
+	<!-- 包含头部内容 -->
+	<include file='Public:top' />
+	
+	<div id="wrap_body">
+		<!-- 包含右边的分类列表 -->
+		<div id="rightSlide">
+			<include file='Public:right_slide' />
+		</div>
+
+		<div id='post_content'>
+			<h2>发布文章</h2>
+			<form action="{:U('Index/finish_post')}" method='post' id="form">
+				<div class='post_div'> 
+					<span class='post_title'>标题:</span>
+					<input type='text' value='' name='title' class='form_input post_input'/>
+				</div> 
+				
+				<div class='post_div'>
+					<textarea class='form_textarea' id="editor_id" name="content"></textarea>
+				</div> 
+				
+				<div class='post_div'>
+					<span class='post_title'>分类:</span>		
+					<select name='c_id' id='post_form_select'>
+						<option value='-1'>请选择分类</option>
+						<volist name='list' id='vo'>
+							<option value='{$vo.id}'>{$vo.category}</option>
+						</volist>
+					</select>
+					<a href='javascript:void(0)' class='c_cate'>创建新分类</a>
+				</div>
+				
+				<div class='post_div'>
+					<span class='post_title'>标签:</span>
+					<input type='text' value='' name='tag' class='form_input post_input post_tags_input' />
+					<div class='tag_tips'>
+						<p>输入新标签后，请用“空格”隔开，最多可添加5个标签。</p>
+						<p>下面为已用过的标签,点击标签可以使用该标签。</p>
+						<volist name='tag_list' id='tag_vo'>
+							<a href='javascript:void(0);' class='use_tag_a' rel='{$tag_vo.id}'>{$tag_vo.tag}</a>
+						</volist>
+					</div>
+				</div> 
+				
+				<div class='post_div'>
+					<span class='post_title'>设置:</span>
+					<input type='radio' value='1' name='comment_conf' checked='checked'/><span class="radio_span">允许所有人评论</span>
+					<input type='radio' value='2' name='comment_conf' /><span class="radio_span">不允许匿名评论</span>
+					<input type='radio' value='3' name='comment_conf' /><span class="radio_span">不允许评论</span>
+				</div> 
+				
+				<div class='post_sub'>
+					<input type='submit' value='发布文章' name='sub' class='form_sub post'/>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 包含尾部内容 -->
+	<include file='Public:footer' />
+	
+	<!-- 分类内容 -->
+	<div class='c_content'>
+		<div>
+			<input type='text' value='' name='category' placeholder='最多可输入14个字符' class='form_input c_input c_name'/>
+			<input type='button' value='创建分类' name='sub'  class='form_sub c_sub'  />
+			<span class='c_n'>请用中文、英文或数字。</span>
+		</div>
+	</div>
+</body>
+</html>

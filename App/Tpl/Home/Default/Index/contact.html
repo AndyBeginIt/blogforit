@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$Think.lang.nav_3}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+<script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
+<script  type="text/javascript" src="__HOME__/Js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	fillBlank();
+});
+</script>
+</head>
+<body>
+	<!-- 包含头部内容 -->
+	<include file='Public:top' />
+	
+	<!-- Start Body -->
+	<div id="wrap_body">	
+		<!-- 包含右边的分类列表 -->
+		<div id="rightSlide">
+			<include file='Public:right_slide' />
+		</div>
+		
+		<div id='bd_content'>
+			<div class='info'>
+				<h2 class='b_title'>{$Think.lang.nav_3}</h2>
+				<ul class='ct_u'>
+					<li><span>{$Think.lang.contactUs_1}:</span><a href='mailto:zhexiao@163.com'>zhexiao@163.com</a></li>
+					<li><span>QQ:</span>37644681&nbsp;( {$Think.lang.contactUs_2} )</li>
+					<li><span>{$Think.lang.contactUs_3}:</span><a href='http://weibo.com/xiaozhe339'>http://weibo.com/xiaozhe339</a></li>
+					<li><span>{$Think.lang.contactUs_4}:</span><a href='http://blog.sina.com.cn/andybegin'>http://blog.sina.com.cn/andybegin</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 包含底部内容 -->
+	<include file='Public:footer' />
+</body>
+</html>

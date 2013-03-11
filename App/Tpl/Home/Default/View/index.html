@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$Think.lang.view_1}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+<script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
+<script  type="text/javascript" src="__HOME__/Js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//填充页面
+	fillBlank();
+
+	var blogId =  $('.blogId').val();
+	//Get comment
+	var data = {'blogId': blogId};
+	$('.loadingImg').show();
+	$.ajax({
+		type : 'post',
+		data : data,
+		url  :'__URL__/getComment',
+		success : function(data)
+		{
+			if(data != 'null')
+			{
+				var obj = eval("("+data+")");
+				var str = '';
+				for(var i in obj)
+				{
+					str += "<div class='comment_div'>"+
+							"<div class='com_div'>"+
+								"<img src='__PUBLIC__/Avatar/"+obj[i]['avatar']+"' class='com_img' />"+
+								"<span class='com_name'>"+obj[i]['name']+"<span class='com_name_1'>Say:</span></span>"+
+								"<a  class='com_reply' href='javascript:void(0)' onclick=\"replyComment('"+obj[i]['name']+"');\">Reply</a>"+
+							"</div>"+
+							"<div class='com_datetime'>"+obj[i]['datetime']+"</div>"+
+							"<p class='com_content'>"+obj[i]['content']+"</p>"+
+							"</div>";
+				}
+				
+				$('.wrap_comment').append(str).show();
+				var appendHeight = $('.wrap_comment').css('height');
+				fillBlank(appendHeight);
+			}
+			$('.loadingImg').hide();
+		}	
+	});
+
+	//write comment
+	$('.form_com_submit').click(function(){
+		var data = {
+		'blogId' : blogId,
+		'name'  : $("input[name='name']").val(),
+		'email' : $("input[name='email']").val(),
+		'content' : $('.form_com_textarea').val(),
+		};
+		$.ajax({
+			type : 'post',
+			url : '__URL__/comment_done',
+			data : data,
+			success : function(data){
+				var obj = eval("("+data+")");
+				if(obj['success'] == true)
+				{
+					var str = "<div class='comment_div'>"+
+							"<div class='com_div'>"+
+								"<img src='__PUBLIC__/Avatar/"+obj['avatar']+"' class='com_img' />"+
+								"<span class='com_name'>"+obj['name']+"<span class='com_name_1'>Say:</span></span>"+
+								"<a  class='com_reply' href='javascript:void(0)' onclick=\"replyComment('"+obj['name']+"');\">Reply</a>"+
+							"</div>"+
+							"<div class='com_datetime'>"+obj['datetime']+"</div>"+
+							"<p class='com_content'>"+obj['content']+"</p>"+
+							"</div>";
+					$('.wrap_comment').append(str).show();
+					//clear value
+					clearAllData();
+					var appendHeight = $('.wrap_comment').css('height');
+					fillBlank(appendHeight);
+				}
+				else
+				{
+					alert(obj['msg']);
+				}
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<!-- 包含头部内容 -->
+<include file='Public:top' />
+
+<!-- Start Body -->
+<div id="wrap_body">	
+	<div id="rightSlide">
+		<!-- 包含右边的分类列表 -->
+		<include file='Public:right_slide' />
+	</div>
+	
+	<!-- 页面主要内容 -->
+	<div id="bd_content">
+		<div class="b_div view_div">	
+			<!-- 输出博客文章的主要内容 -->
+			{$BlogConStr}
+
+			<!-- 相关文章-->
+			<div id='related'>
+				<div>{$Think.lang.view_2}：</div>
+				<ul class='con_relate'>
+					<volist name='relateBlogs' id='vo'>
+						<li><a href="{:U('View/index/b_id')}/{$vo.id}">{$vo.title}</a></li>
+					</volist>
+				</ul>
+			</div>
+
+			<div class='wrap_comment'>
+				<h2>Comment</h2>
+			</div>
+			<div class='loadingImg' style='text-align:center;display:none;'><img src='__HOME__/Images/loading.gif' /></div>
+
+			<!-- Comment form-->
+			<div id='comment'>
+				<h2>Write a Comment</h2>
+				<form method='post' action='__URL__/comment_done'>
+					<div class='form_div'>
+						<span><input type='text' class='c_name'  name='name' placeholder='You Name'></span>
+						<span class='form_com_span'>*Name (required)</span>
+					</div>
+					<div class='form_div'>
+						<span><input type='text' class='c_email' name='email' placeholder='You Email'></span>
+						<span class='form_com_span'>*Email (required , not published)</span>
+					</div>
+					<div class='form_div'>
+						<p class='form_com_span'>* Your Message (required) 10~500 characters</p>
+						<textarea class='form_com_textarea' name='content'></textarea>
+					</div>
+					<div>
+						<input type='button' class='form_com_submit' value='Submit Comment' name='sub'>
+						<input type='hidden' name='blogId' class='blogId' value='{$Think.get.b_id}'> 
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 包含公用尾部 -->
+<include file='Public:footer' />
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户登陆&nbsp;|&nbsp;{$Think.config.WEB_TITLE}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+</head>
+<body style='background-color: #fafafa'>
+	<div id="register">
+		<h3>聚集IT时事|收集IT技术</h3>
+		<p class="message">用户登陆这个站点</p>
+		<form method='post' action="{:U('Index/finish_login')}" id="reg_form">
+			<div>
+				<span class='form_span'>电子邮件</span>
+				<div>
+					<input type="text" value="" name="email" class='form_input'/>
+				</div>
+			</div>
+			<div>
+				<span class='form_span'>密码</span>
+				<div>
+					<input type="password" value="" name="password" class='form_input'/>
+				</div>
+			</div>
+			<div>
+				<input type="submit" value="登陆" name="sub" class="form_sub"/>
+			</div>
+		</form>
+		<ul class='reg_ul'>
+			<!-- <li><a href="{:U('Index/register')}">注册</a></li> 
+			<li>|</li>-->
+			<li><a href="{:U('Index/foget_pass')}">忘记密码？</a></li>
+		</ul>
+		<div class='clear'></div>
+		<a class='back' href="{:U('Index/index')}">← 回到网站首页</a>
+	</div>
+</body>
+</html>

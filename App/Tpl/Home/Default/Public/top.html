@@ -1,0 +1,64 @@
+<!-- 这2个有关Auto Complete的库 -->
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/jquery-ui.css' />
+<script  type="text/javascript" src="__HOME__/Js/jquery-ui.min.js"></script>
+
+<!-- Start Header -->
+<div id="header">
+	<div class='logo'>
+		<h1>{$Think.lang.title_1}</h1>
+		<h2>{$Think.lang.title_2}</h2>
+	</div>
+	<div id='nav_div'>
+		<ul id='nav'>
+			<li><a href="{:U('Index/index')}">{$Think.lang.nav_1}</a></li>
+			<li><a href="{:U('Index/about')}">{$Think.lang.nav_2}</a></li>
+			<li><a href="{:U('Index/contact')}">{$Think.lang.nav_3}</a></li>
+		</ul>
+		<form action="{:U('Index/index')}" method='get' class='search'>
+			<input type='text' placeholder="Search" id="autocomplete_tag" class='search_input' name='search'  />
+		</form>
+	</div>
+</div>
+
+<script type='text/javascript'>
+//搜索输入框的自动完成
+$(document).ready(function() {
+	//自动完成功能
+    $(function() {
+        $( "#autocomplete_tag" ).autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                     url	: "{:U('Autocomplete/suggestion')}",
+               		 data	: { 
+                   		term	:	$("#autocomplete_tag").val(), 
+                		},
+               	 dataType	: "json",
+               		 type	: "POST",
+               	 success	: function(data){ 
+                	var tmp = [];
+					for(var i in data)
+					{
+						//alert(i);
+						for(var n in data[i])
+						{
+							//alert(n);
+							tmp.push(data[i][n]);
+						}
+					}
+					response(tmp);
+                }
+            });
+        },
+        minLength: 2
+        });
+    });
+
+    //按回车进行搜索功能
+    $('.search_input').keydown(function(event){
+    	if(event.keyCode == 13)
+    	{
+    		$('.search').submit();
+    	}
+    });
+});
+</script>

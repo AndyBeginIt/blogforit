@@ -1,0 +1,34 @@
+<if condition="$comment_list eq null">
+	<div class='rpl_no'>该博客文章暂无最新评论</div>
+<else />
+	<volist name="comment_list" id="c_vo">
+		<div class='reply_con' onmouseover="this.className='reply_con reply_con_selected';$(this).children('.a_link').show();" onmouseout="this.className='reply_con';$(this).children('.a_link').hide()">
+			<span class='rpl_img'>
+				<img src="__PUBLIC__/Uploads/thumb_{$c_vo.icon}" style='width:50px;height:50px'>
+			</span>
+			<span class='rpl_span'>{$c_vo.nickname}</span>
+			<span class='rpl_span rly_d'>{$c_vo.datetime}</span>
+			<div class='t_txt'>
+			{$c_vo.comment}
+				<if condition="$c_vo.reply neq null">
+					<volist name='c_vo.reply' id='rly_vo' key="k">
+						<div class='com_rep_div'>
+							<span class='com_rep_s1'>#{$k} {$rly_vo.nickname}</span>
+							<span class='com_rep_s2'>{$rly_vo.datetime}</span>
+							<div class='com_rep_d1'>{$rly_vo.reply_con}</div>
+						</div>
+					</volist>
+				</if>
+			</div>
+			<div class='a_link'>
+				<a href='javascript:void(0);' class='comment_ding_link' title='支持' rel={$c_vo.id}><span style='color:#999;font-size:13px;'>{$c_vo.support}</span></a>
+				<a href='javascript:void(0);' class='comment_reply_link' title='回复' rel={$c_vo.id}></a>
+				<input type='hidden' name='comment_reply_uid' value='{$c_vo.u_id}' class='comment_reply_uid'/>
+			</div>
+		</div>
+	</volist>
+	<div class='show_more'>显示更多评论</div>
+	<input type='hidden' name='offset' value='{$offset}' />
+	<input type='hidden' name='b_id' value='{$b_id}' />
+</if>
+

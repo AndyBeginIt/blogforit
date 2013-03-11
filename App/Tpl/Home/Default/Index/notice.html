@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>通知&nbsp;|&nbsp;{$Think.config.WEB_TITLE}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+<script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
+</head>
+<body>
+	<!-- 包含头部内容 -->
+	<include file='Public:top' />
+	
+	<!-- Start Body -->
+	<div id="wrap_body">
+		<!-- 包含主题内容的头部 -->
+		<include file='Public:body_top' />
+	
+		<!-- 包含右边的分类列表 -->
+		<div id="bd_slide">
+			<include file='Public:right_slide' />
+		</div>
+		
+		<div id='bd_content'>
+			<div class='b_div'>
+				<h2 class='b_title'>全部通知</h2>
+				<volist name='rem_list' id='rem_vo'>
+				
+				<if condition="$rem_vo.remind eq 0">
+					<div class="notice_div  not_read">
+				<else />
+					<div class="notice_div">
+				</if>
+						<span class='write_user'>{$rem_vo.nickname}</span>
+						<span class='notice_con'>
+							<if condition="$rem_vo.type eq 0">
+								<if condition="$rem_vo.remind eq 0">
+									评论了你的文章<a href="{:U('View/index/b_id')}/{$rem_vo.b_id}/rem_id/{$rem_vo.id}" class='nc_a'>《{$rem_vo.title}》</a>
+								<else />
+									评论了你的文章<a href="{:U('View/index/b_id')}/{$rem_vo.b_id}" class='nc_a'>《{$rem_vo.title}》</a>
+								</if>
+							<else />
+								<if condition="$rem_vo.remind eq 0">
+									对你在文章<a href="{:U('View/index/b_id')}/{$rem_vo.b_id}/rem_id/{$rem_vo.id}" class='nc_a'>《{$rem_vo.title}》</a>的评论进行了回复
+								<else />
+									对你在文章<a href="{:U('View/index/b_id')}/{$rem_vo.b_id}" class='nc_a'>《{$rem_vo.title}》</a>的评论进行了回复
+								</if>
+							</if>
+						</span>
+						<span class='notice_datetime'>{$rem_vo.datetime}</span>
+					</div>
+					
+				</volist>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- 包含底部内容 -->
+	<include file='Public:footer' />
+</body>
+</html>

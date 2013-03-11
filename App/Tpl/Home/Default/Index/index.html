@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>{$Think.lang.nav_1}</title>
+<link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
+<script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
+<script  type="text/javascript" src="__HOME__/Js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//填充空白
+	fillBlank();
+});
+</script>
+</head>
+<body>
+	<!-- 包含头部内容 -->
+	<include file='Public:top' />
+	
+	<!-- Start Body -->
+	<div id="wrap_body">
+		<!-- 右侧边栏 -->
+		<div id='rightSlide'>
+			<include file='Public:right_slide' />
+		</div>
+		
+
+		<!-- 页面主要内容 -->
+		<div id="bd_content">
+			<!-- 如果分类没有文章 -->
+			<if condition="$blog_list eq null">
+				<div class='b_error'>Sorry,没有找到任何文章喔！</div>
+			<else />
+			<!-- 存在文章 -->
+				<volist name='blog_list' id='blog_vo'>
+					<div class='b_div'>
+						<div>
+							<span>{$blog_vo.datetime} {$Think.lang.bDIv_1}</span>
+							<span class='b_div_1'>{$blog_vo.commentNum} {$Think.lang.bDIv_2} | {$blog_vo.click} {$Think.lang.bDIv_3}</span>
+						</div>
+						<h2 class='b_title'><a href="{:U('View/index/b_id')}/{$blog_vo.id}">{$blog_vo.title}</a></h2>
+						<div class='b_con'>
+							{$blog_vo.content|strip_tags|msubstr=###,0,300}
+						</div>
+						<div class='b_info'>
+							<span class='b_info_s1'>
+								<span class='tag_name'>{$Think.lang.bDIv_4}：</span>
+								<php>
+									$tags = explode(',',$blog_vo['tags']);
+									foreach($tags as $val)
+									{
+										echo "<a class='b_tags' href='__APP__/Index/index/tags/$val'>".$val."</a>";	
+									}
+								</php>
+							</span>
+						</div>
+						<div class='b_info1'>{$Think.lang.bDIv_5}：<a href="{:U('Index/index/c_id')}/{$blog_vo.c_id}">{$blog_vo.category}</a></div>
+						<div class='readmore'><a href="{:U('View/index/b_id')}/{$blog_vo.id}" class='icons b_more'>{$Think.lang.bDIv_6}</a></div>
+					</div>
+				</volist>
+			</if>
+		</div>
+		<div id='page'>{$show}</div>
+	</div>
+	
+	<!-- 包含公用尾部 -->
+	<include file='Public:footer' />
+</body>
+</html>
