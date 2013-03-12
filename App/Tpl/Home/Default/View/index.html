@@ -109,7 +109,7 @@ $(document).ready(function(){
 				<div>{$Think.lang.view_2}：</div>
 				<ul class='con_relate'>
 					<volist name='relateBlogs' id='vo'>
-						<li><a href="{:U('View/index/b_id')}/{$vo.id}">{$vo.title}</a></li>
+						<li><a href='{:U("blog/$vo[id]")}'>{$vo.title}</a></li>
 					</volist>
 				</ul>
 			</div>
