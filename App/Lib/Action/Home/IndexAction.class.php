@@ -63,8 +63,6 @@ class IndexAction extends CommonAction {
 		$Page  = new Page($count,C('PAGESIZE'));	
 		$blog_list = $BlogViewModel->order('id desc')->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
 		//分页配置
-		$tmpArr = explode('/', $_SERVER['PATH_INFO']);
-		$Page->url = $tmpArr[1].'/'.$tmpArr[2].'/p/';
 		$Page->setConfig('theme'," <span class='up_page'>%upPage%</span> <span class='down_page'>%downPage% </span>");
 		$Page->setConfig('prev','← '.L('page_prev'));
 		$Page->setConfig('next',L('page_next').' →');

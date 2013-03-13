@@ -16,7 +16,7 @@
 	<ul class='slide_c'>
 		<volist name='cates_list' id='c_vo'>
 			<li class='icons s_c_l'>
-				<a href='{:U("category/$c_vo[id]")}'>{$c_vo.category}<span class='s_c_s'>&nbsp;({$c_vo.count})</span></a>
+				<a href="{:U('Index/index/c_id')}/{$c_vo.id}">{$c_vo.category}<span class='s_c_s'>&nbsp;({$c_vo.count})</span></a>
 			</li>
 		</volist>
 	</ul>
@@ -29,7 +29,7 @@
 		<volist name='com_list' id='com_vo'>
 			<li class='icons s_c_l'>		
 				<div class='com_vo_name'>{$com_vo.name} Say:</div>
-				<p class='com_vo_content'><a href='{:U("blog/$com_vo[blogId]")}'>{$com_vo.content|msubstr=###,0,25}</a></p>
+				<p class='com_vo_content'><a href="{:U('View/index/b_id')}/{$com_vo.blogId}">{$com_vo.content|msubstr=###,0,25}</a></p>
 				<div class='com_vo_datetime'>{$com_vo.datetime|date='Y-m-d H:i:s',###}</div>
 			</li>
 		</volist>
@@ -41,7 +41,7 @@
 	<h3>{$Think.lang.right_3}</h3>
 	<div class='tag_a_div'>
 		<volist name='tags_list' id='tags_vo'>
-			<a class='tag_a' href="/tag/{$tags_vo.tag|trim=###}">{$tags_vo.tag|trim=###}</a>
+			<a class='tag_a' href="{:U('Index/index/tags')}/{$tags_vo.tag|trim=###}">{$tags_vo.tag|trim=###}</a>
 		</volist>
 	</div>
 </div>
@@ -54,7 +54,7 @@
 	<ul class='slide_c'>
 		<volist name='dateArchiveArr' id='archive_vo'>
 			<li class='icons s_c_l'>
-				<a  href='{:U("archive/$archive_vo")}'>
+				<a  href="{:U('Index/index/date')}/{$archive_vo}">
 					<php>
 						$tmp = str_replace('-','/',$archive_vo);
 						echo $tmp;
