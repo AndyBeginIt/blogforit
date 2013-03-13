@@ -38,7 +38,7 @@ $(document).ready(function(){
 							<span>{$blog_vo.datetime} {$Think.lang.bDIv_1}</span>
 							<span class='b_div_1'>{$blog_vo.commentNum} {$Think.lang.bDIv_2} | {$blog_vo.click} {$Think.lang.bDIv_3}</span>
 						</div>
-						<h2 class='b_title'><a href="{:U('View/index/b_id')}/{$blog_vo.id}">{$blog_vo.title}</a></h2>
+						<h2 class='b_title'><a href='{:U("blog/$blog_vo[id]")}'>{$blog_vo.title}</a></h2>
 						<div class='b_con'>
 							{$blog_vo.content|strip_tags|msubstr=###,0,300}
 						</div>
@@ -49,13 +49,15 @@ $(document).ready(function(){
 									$tags = explode(',',$blog_vo['tags']);
 									foreach($tags as $val)
 									{
-										echo "<a class='b_tags' href='__APP__/Index/index/tags/$val'>".$val."</a>";	
+								</php>
+										<a class='b_tags' href='{:U("tag/$val")}'><?=$val?></a>
+								<php>	
 									}
 								</php>
 							</span>
 						</div>
-						<div class='b_info1'>{$Think.lang.bDIv_5}：<a href="{:U('Index/index/c_id')}/{$blog_vo.c_id}">{$blog_vo.category}</a></div>
-						<div class='readmore'><a href="{:U('View/index/b_id')}/{$blog_vo.id}" class='icons b_more'>{$Think.lang.bDIv_6}</a></div>
+						<div class='b_info1'>{$Think.lang.bDIv_5}：<a href='{:U("category/$blog_vo[c_id]")}'>{$blog_vo.category}</a></div>
+						<div class='readmore'><a href='{:U("blog/$blog_vo[id]")}' class='icons b_more'>{$Think.lang.bDIv_6}</a></div>
 					</div>
 				</volist>
 			</if>
