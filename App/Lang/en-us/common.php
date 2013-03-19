@@ -22,6 +22,7 @@ return array(
 	'right_6_1_2'=>	'Chinese',
 	
 	'bDiv_1'	=>	'Published',
+	'bDiv_1_1'	=>	'Edit',
 	'bDiv_2'	=>	'Comments',
 	'bDiv_3'	=>	'Views',
 	'bDiv_4'	=>	'Tags',
@@ -40,7 +41,8 @@ return array(
 	'contactUs_3'	=>	'Sina Microblogging',
 	'contactUs_4'	=>	'Technology Blog',
 
-	'post_1'		=>	'Publishe Blog',
+	'post_1'		=>	'Publish Blog',
+	'post_1_edit'	=>	'Edit Blog',
 	'post_2'		=>	'Title',
 	'post_3'		=>	'Category',
 	'post_3_1'		=>	'Please make a selection',
@@ -51,6 +53,7 @@ return array(
 	'post_5_2'		=>	'Does not allow anonymous comments',
 	'post_5_3'		=>	'Not allow comments',
 	'post_6'		=>	'Publish Submit',
+	'post_7'		=>	'Update Submit',
 
 	'view_1'		=>	'View Post',
 	'view_2'		=>	'Related Blog Posts',

@@ -17,10 +17,10 @@ KindEditor.plugin('code', function(K) {
 			html = ['<div style="padding:10px 20px;">',
 				'<div class="ke-dialog-row">',
 				'<select class="ke-code-type">',
+				'<option value="php">PHP</option>',
 				'<option value="js">JavaScript</option>',
 				'<option value="html">HTML</option>',
 				'<option value="css">CSS</option>',
-				'<option value="php">PHP</option>',
 				'<option value="pl">Perl</option>',
 				'<option value="py">Python</option>',
 				'<option value="rb">Ruby</option>',
@@ -46,7 +46,8 @@ KindEditor.plugin('code', function(K) {
 						var type = K('.ke-code-type', dialog.div).val(),
 							code = textarea.val(),
 							cls = type === '' ? '' :  ' lang-' + type,
-							html = '<pre class="prettyprint' + cls + '">\n' + K.escape(code) + '</pre> ';
+							//html = '<pre class="prettyprint' + cls + '">\n' + K.escape(code) + '</pre> ';
+							html = '<pre class="brush:' + type + ';">\n' + K.escape(code) +'</pre>';
 						self.insertHtml(html).hideDialog().focus();
 					}
 				}

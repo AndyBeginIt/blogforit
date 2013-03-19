@@ -151,7 +151,7 @@ hr{color:#e5e5e5}
 .view_div{border: none;margin-bottom: 0px;padding-bottom: 50px;overflow: hidden;}
 .con_datetime{margin-top: 20px;color: #999;font-size: 18px;}
 .con_title{color: #222;font-size: 48px;vertical-align: baseline;margin-top: 25px;padding-bottom:25px;border-bottom: 1px dashed #ccc;}
-.con_body{color:#444;font-size: 16px;vertical-align: baseline;margin-top: 40px;line-height: 21px;}
+.con_body{color:#444;font-size: 14px;vertical-align: baseline;margin-top: 40px;line-height: 21px;}
 .con_tags{margin-top: 20px;color: #999;}
 .con_category{margin-top: 10px;color: #999;}
 .con_category a{color: #666}
@@ -176,4 +176,5 @@ hr{color:#e5e5e5}
 .com_reply{float: right;color: #999;font-size: 18px;}
 .com_reply:hover{color: #0181EB;text-decoration: underline;}
 .com_content{font-size: 18px;margin-top: 20px;line-height: 25px;overflow: hidden;}
+.con_edit{float: right;cursor: pointer;}
 

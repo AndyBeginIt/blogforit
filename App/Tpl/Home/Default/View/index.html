@@ -6,8 +6,19 @@
 <link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
 <script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
 <script  type="text/javascript" src="__HOME__/Js/common.js"></script>
+<link style="text/css" rel="stylesheet" href="__ADMIN__/Css/CodeHighlighter/shCore.css">
+<link style="text/css" rel="stylesheet" href="__ADMIN__/Css/CodeHighlighter/shThemeDefault.css">
+<script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shCore.js"></script>
+<script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shAutoloader.js"></script>
+<script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shBrushPhp.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	//加载代码高亮
+	SyntaxHighlighter.autoloader(
+		'php            /Public/Admin/Js/CodeHighlighter/shBrushPhp.js'
+	);
+	SyntaxHighlighter.all();
+	
 	//填充页面
 	fillBlank();
 
@@ -101,6 +112,10 @@ $(document).ready(function(){
 	<!-- 页面主要内容 -->
 	<div id="bd_content">
 		<div class="b_div view_div">	
+			<if condition="$Think.session.u_id neq NULL">
+				<a href='{:U("blog/edit/$b_id")}' class="con_edit">{$Think.lang.bDiv_1_1}</a>
+			</if>
+			
 			<!-- 输出博客文章的主要内容 -->
 			{$BlogConStr}
 

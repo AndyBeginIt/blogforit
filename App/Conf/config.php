@@ -36,10 +36,11 @@ $arr3 = array(
     'URL_ROUTER_ON'   => true, //开启路由
 	'URL_ROUTE_RULES' => array( 
 		//定义路由规则
-	    'blog/:b_id'	 =>		'View/index',	
-	    'category/:c_id' =>		'Index/index',
-	  	'tag/:tags'		=>		'Index/index',
-	  	'archive/:date'	=>		'Index/index',
+		'blog/edit/:b_id'			=>		'View/edit',
+	    'blog/:b_id'		=>		'View/index',	
+	    'category/:c_id' 	=>		'Index/index',
+	  	'tag/:tags'			=>		'Index/index',
+	  	'archive/:date'		=>		'Index/index',
 	),
 	
 );

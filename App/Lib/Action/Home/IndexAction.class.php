@@ -217,11 +217,10 @@ class IndexAction extends CommonAction {
 	  */
 	  function getAllCate()
 	  {
-		$where = array(
-			'u_id' => array('eq',$_SESSION['u_id'])
-		);
-		$info=$this->xz_select_db('Category',$where);
-		echo json_encode($info);
+		//得到该用户的所有分类名称
+		$categoryModel = D('Category');
+ 		$cateList = $categoryModel->field('id,category')->select();
+		echo json_encode($cateList);
 	  }
 	  
 	  /**

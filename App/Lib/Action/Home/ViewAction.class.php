@@ -62,6 +62,7 @@ class ViewAction extends CommonAction{
 	 		
 	 		$this->assign('BlogConStr',$BlogConStr);
 	 		$this->assign('relateBlogs',$relateBlogs);
+	 		$this->assign('b_id',$b_id);
 	 	}
 	 	
 	 	$this->display();
@@ -114,6 +115,72 @@ class ViewAction extends CommonAction{
 	 			$data[$key]['datetime'] = date('Y-m-d H:i:s',$data[$key]['datetime']);
 	 		}
 	 		echo json_encode($data);
+	 	}
+	 }
+
+
+	 /**
+	  * edit blog content
+	  */
+	 function edit()
+	 {	
+	 	if($this->isGet())
+	 	{
+	 		$b_id = (int)$_GET['b_id'];
+	 		$blogViewModel = D('BlogView');
+	 		$where = 'Blog.id = %d';
+	 		$list = $blogViewModel->where($where,array($b_id))->order('id desc')->find();
+	 		$this->assign('blogList',$list);
+
+	 		//得到该用户的所有分类名称
+			$categoryModel = D('Category');
+	 		$cateList = $categoryModel->field('id,category')->select();
+			//得到该用户下面使用过的标签
+			$TagsModel = D('Tags');
+			$tag_list = $TagsModel->field('id,tag')->where($where)->limit(45)->order('id desc')->select();
+
+			$this->assign('cateList',$cateList);
+			$this->assign('tag_list',$tag_list);
+
+	 		//调用Commom/right_slide 			获得所有的分类列表
+	 		$this->right_slide();
+	 		//调用Common/get_latest_comment		获取最新评论
+	 		$this->get_latest_comment();
+	 		//调用Common/get_latest_tag			获取tags
+	 		$this->get_latest_tag();
+	 		//调用Common/get_blog_archive		获得有博客文章归档的日期
+	 		$this->get_blog_archive();
+
+	 		$this->display();
+	 	}
+	 	
+	 }
+
+
+	 /**
+	  * Update blog
+	  */
+	 function update_post()
+	 {
+	 	if($this->isPost())
+	 	{
+	 		$id = $this->_post('id');
+	 		$blogModel = D('Blog');
+	 		if($data = $blogModel->create($_POST,'update'))
+	 		{	
+	 			if($blogModel->save($data))
+	 			{	
+	 				$this->redirect('blog/'.$id);
+	 			}
+	 			else
+	 			{
+	 				$this->error('更新出错，请联系管理员');
+	 			}
+	 		}
+	 		else
+	 		{
+	 			$this->error($blogModel->getError());
+	 		}
 	 	}
 	 }
 	 

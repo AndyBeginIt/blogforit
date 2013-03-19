@@ -35,7 +35,7 @@ $(document).ready(function(){
 				<volist name='blog_list' id='blog_vo'>
 					<div class='b_div'>
 						<div>
-							<span>{$blog_vo.datetime} {$Think.lang.bDIv_1}</span>
+							<span>{$blog_vo.datetime}&nbsp;{$Think.lang.bDIv_1}</span>
 							<span class='b_div_1'>{$blog_vo.commentNum} {$Think.lang.bDIv_2} | {$blog_vo.click} {$Think.lang.bDIv_3}</span>
 						</div>
 						<h2 class='b_title'><a href='{:U("blog/$blog_vo[id]")}'>{$blog_vo.title}</a></h2>
