@@ -2,7 +2,7 @@
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, 
 th, td, div,from{margin: 0; padding: 0}
 a{ text-decoration:none ;}
-*,body,button, input, select, textarea,h1, h2, h3, h4, h5, h6,.nav ul, p, dd, dt,.nav li,.nctie h1{ font-family:  \5b8b\4f53,Arial; /*font-family: 'PT Serif', Georgia, Times, 'Times New Roman', serif;*/}
+*,body,button, input, select, textarea,h1, h2, h3, h4, h5, h6,.nav ul, p, dd, dt,.nav li,.nctie h1{ font-family:  arial, sans-serif;}
 ul{ list-style: none}
 a{color:black}
 a:hover{ text-decoration: none;color: #005C9C}
@@ -78,19 +78,21 @@ hr{color:#e5e5e5}
 #rightSlide {float: right;width: 300px;background: #f7f7f7;border-left: 1px solid #d0d0d0;}
 .slide_div{padding: 20px;}
 .slide_div h3{padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
-.slide_c li{padding: 10px 0px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;font-family:  \5b8b\4f53,Arial;}
+.slide_c li{padding: 10px 0px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
 .slide_c li a{font-size: 16px;color: #222}
 .slide_c li a:hover{color: #005C9C}
 .admin_div a{padding: 10px 0px;display: block;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
 .admin_div a:hover{text-decoration: underline;color: #005C9C}
-.com_vo_name{font-size: 16px;color: #222;margin-bottom: 8px;font-family:  \5b8b\4f53,Arial;}
-.com_vo_datetime{font-size: 14px;color: #222;margin-top: 8px;font-family:  \5b8b\4f53,Arial;}
+.com_vo_name{font-size: 16px;color: #222;margin-bottom: 8px;}
+.com_vo_datetime{font-size: 14px;color: #222;margin-top: 8px;}
 .com_vo_content{font-size: 14px;color: #222;text-indent: 13px;}
-.com_vo_content a{font-size: 14px!important;font-family:  \5b8b\4f53,Arial;}
+.com_vo_content a{font-size: 14px!important;}
 .com_vo_content a:hover{ color:#005C9C}
 .tag_a{float: left;padding: 3px;color: #222;}
 .slide_div.slide_tag_div {float: left;padding: 0px;margin: 20px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
 .tag_a_div{padding: 10px 0px;float: left}
+.calendarTable{width: 100%;text-align: center;padding: 15px 0px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
+.curDay{background-color: #ccc!important;}
 
 /*Register*/
 #register{width:330px;height:500px;margin:0 auto;margin-top:50px;}

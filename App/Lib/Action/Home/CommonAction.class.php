@@ -180,6 +180,22 @@ class CommonAction extends Action{
 		$this->assign('tags_list',$tags_list);
 	}
 	
+
+	/**
+	 * 生成日历
+	 * @return [type] [description]
+	 */
+	function generateCalendar()
+	{
+		import('@.Action.Calendar');
+		$year = date('Y');
+		$month = date('F');
+		$obj = new calendar($month,$year);
+		$calendar = $obj->generateCalendar();
+		$this->assign('calendar',$calendar);
+	}
+
+
 	/**
 	 * 获得有博客文章归档的日期
 	 */

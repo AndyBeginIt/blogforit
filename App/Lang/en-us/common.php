@@ -20,6 +20,7 @@ return array(
 	'right_6_1'	=>	'Please choose language',
 	'right_6_1_1'=>	'English',
 	'right_6_1_2'=>	'Chinese',
+	'right_7'	=>	'Calendar',
 	
 	'bDiv_1'	=>	'Published',
 	'bDiv_1_1'	=>	'Edit',

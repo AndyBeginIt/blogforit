@@ -83,6 +83,8 @@ class IndexAction extends CommonAction {
 		$this->get_latest_comment();
 		//调用Common/get_latest_tag			获取tags
 		$this->get_latest_tag();
+		//调用Common/generateCalendar		生成日历
+		$this->generateCalendar();
 		//调用Common/get_blog_archive		获得有博客文章归档的日期
 		$this->get_blog_archive();
 		
@@ -418,6 +420,8 @@ class IndexAction extends CommonAction {
 		$this->get_latest_comment();
 		//调用Common/get_latest_tag			获取tags
 		$this->get_latest_tag();
+		//调用Common/generateCalendar		生成日历
+		$this->generateCalendar();
 		//调用Common/get_blog_archive		获得有博客文章归档的日期
 		$this->get_blog_archive();
 	
@@ -438,6 +442,8 @@ class IndexAction extends CommonAction {
 		$this->get_latest_comment();
 		//调用Common/get_latest_tag获取TAGS
 		$this->get_latest_tag();
+		//调用Common/generateCalendar		生成日历
+		$this->generateCalendar();
 		//调用Common/get_blog_archive		获得有博客文章归档的日期
 		$this->get_blog_archive();
 		
