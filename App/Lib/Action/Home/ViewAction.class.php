@@ -26,6 +26,7 @@ class ViewAction extends CommonAction{
 	 		{ 			
 	 			$blog_list = $BlogModel->where($where)->find();
 	 			$c_id = $blog_list['c_id'];
+	 			$blogTitle = $blog_list['title'];
 	 			//定义输出在页面的文章内容
 	 			$BlogConStr = 	"<div class='con_datetime'>".$blog_list['datetime'].' '.L('bDiv_1')."</div>".
 			 					"<h2 class='con_title'>".$blog_list['title']."</h2>".
@@ -33,12 +34,14 @@ class ViewAction extends CommonAction{
 			 					"</div>	";
 	 			//写入Memcache
 	 			$Memcache->set('View'.$b_id, $BlogConStr,3600); 	//864000	
-	 			$Memcache->set('c_id'.$b_id, $c_id,3600);	
+	 			$Memcache->set('c_id'.$b_id, $c_id,3600);
+	 			$Memcache->set('blogTitle'.$b_id, $blog_list['title'],3600);	
 	 		}
 	 		else
 	 		{
 	 			$BlogConStr = 'From Memcache'.$MemcacheCon;
 	 			$c_id = $Memcache->get('c_id'.$b_id);
+	 			$blogTitle = $Memcache->get('blogTitle'.$b_id);
 	 		}
 	 		
 	 		//更新文章点击数,使用高级模型，每60秒进行一次数据库更新
@@ -65,6 +68,7 @@ class ViewAction extends CommonAction{
 	 		$this->assign('BlogConStr',$BlogConStr);
 	 		$this->assign('relateBlogs',$relateBlogs);
 	 		$this->assign('b_id',$b_id);
+	 		$this->assign('blogTitle',$blogTitle);
 	 	}
 	 	
 	 	$this->display();

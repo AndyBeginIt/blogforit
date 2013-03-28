@@ -172,7 +172,7 @@ class CommonAction extends Action{
 		if(!$tags_list)
 		{
 			$TagsModel = D("Tags");
-			$tags_list = $TagsModel->order('id desc')->limit(45)->select();
+			$tags_list = $TagsModel->order('datetime desc')->select();
 			//写入缓存
 			S('tags_list',$tags_list,3600);
 		}				

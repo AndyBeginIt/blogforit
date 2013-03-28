@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>{$Think.lang.view_1}</title>
+<title>{$Think.lang.view_1}&nbsp;|&nbsp;{$blogTitle}</title>
 <link rel='stylesheet' type='text/css' href='__HOME__/Css/index.css' />
 <script  type="text/javascript" src="__HOME__/Js/jquery-1.7.min.js"></script>
 <script  type="text/javascript" src="__HOME__/Js/common.js"></script>
@@ -10,12 +10,15 @@
 <link style="text/css" rel="stylesheet" href="__ADMIN__/Css/CodeHighlighter/shThemeDefault.css">
 <script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shCore.js"></script>
 <script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shAutoloader.js"></script>
-<script type="text/javascript" src="__ADMIN__/Js/CodeHighlighter/shBrushPhp.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	//加载代码高亮
 	SyntaxHighlighter.autoloader(
-		'php            /Public/Admin/Js/CodeHighlighter/shBrushPhp.js'
+		'php            /Public/Admin/Js/CodeHighlighter/shBrushPhp.js',
+		'shell            /Public/Admin/Js/CodeHighlighter/shBrushBash.js',
+		'js            /Public/Admin/Js/CodeHighlighter/shBrushJScript.js',
+		'css            /Public/Admin/Js/CodeHighlighter/shBrushCss.js',
+		'sql            /Public/Admin/Js/CodeHighlighter/shBrushSql.js'
 	);
 	SyntaxHighlighter.all();
 	
@@ -51,7 +54,7 @@ $(document).ready(function(){
 				
 				$('.wrap_comment').append(str).show();
 				var appendHeight = $('.wrap_comment').css('height');
-				fillBlank(appendHeight);
+				fillBlank();
 			}
 			$('.loadingImg').hide();
 		}	
@@ -86,7 +89,7 @@ $(document).ready(function(){
 					//clear value
 					clearAllData();
 					var appendHeight = $('.wrap_comment').css('height');
-					fillBlank(appendHeight);
+					fillBlank();
 				}
 				else
 				{
@@ -103,14 +106,13 @@ $(document).ready(function(){
 <include file='Public:top' />
 
 <!-- Start Body -->
-<div id="wrap_body">	
-	<div id="rightSlide">
-		<!-- 包含右边的分类列表 -->
-		<include file='Public:right_slide' />
-	</div>
-	
+<div id="wrap_body">			
 	<!-- 页面主要内容 -->
 	<div id="bd_content">
+		<div id="rightSlide">
+		<!-- 包含右边的分类列表 -->
+			<include file='Public:right_slide' />
+		</div>
 		<div class="b_div view_div">	
 			<if condition="$Think.session.u_id neq NULL">
 				<a href='{:U("blog/edit/$b_id")}' class="con_edit">{$Think.lang.bDiv_1_1}</a>

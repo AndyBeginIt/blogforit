@@ -75,7 +75,7 @@ hr{color:#e5e5e5}
 .c_c_1{float:left;}
 
 /* rightSlide */
-#rightSlide {float: right;width: 300px;background: #f7f7f7;border-left: 1px solid #d0d0d0;}
+#rightSlide {position: absolute;right: 0px;top: 0px;width: 300px;background: #f7f7f7;border-left: 1px solid #d0d0d0;}
 .slide_div{padding: 20px;}
 .slide_div h3{padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}
 .slide_c li{padding: 10px 0px;border-bottom: 1px solid #e0e0e0;box-shadow: #fff 0 1px;}

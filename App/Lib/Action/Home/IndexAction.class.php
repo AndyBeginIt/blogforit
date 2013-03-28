@@ -64,7 +64,15 @@ class IndexAction extends CommonAction {
 		$blog_list = $BlogViewModel->order('id desc')->where($where)->limit($Page->firstRow.','.$Page->listRows)->select();
 		//分页配置
 		$tmpArr = explode('/', $_SERVER['PATH_INFO']);
-		$Page->url = $tmpArr[1].'/'.$tmpArr[2].'/p/';
+		//如果首页后面没有Index
+		if(!isset($tmpArr[1]))
+		{
+			$Page->url = 'Index/index/p/';
+		}
+		else
+		{
+			$Page->url = $tmpArr[1].'/'.$tmpArr[2].'/p/';
+		}
 		$Page->setConfig('theme'," <span class='up_page'>%upPage%</span> <span class='down_page'>%downPage% </span>");
 		$Page->setConfig('prev','← '.L('page_prev'));
 		$Page->setConfig('next',L('page_next').' →');
@@ -250,18 +258,23 @@ class IndexAction extends CommonAction {
 			$tagData['u_id'] = $_SESSION['u_id'];
 			foreach ( $_POST['tag'] as $val)
 			{
-				$tagData['tag'] = $val;
+				$tagData['datetime'] = date('Y-m-d H:i:s',time());
+				$tagData['tag'] = trim($val);
 				$TagsModel->add($tagData);
 			}
 		
+			//得到所有的tag标签给文章
 			$tag = '';
 			foreach($_POST['tag'] as $val)
 			{
 				$tag .= trim($val).',';
 			}
+			//给已经存在的标签更新时间
+			$newDate['datetime'] = date('Y-m-d H:i:s',time());
 			foreach($_POST['exist_tag'] as $val)
 			{
 				$tag .= trim($val).',';
+				$TagsModel->where(array('tag'=>$val))->save($newDate);
 			}
 			
 			$_POST['tags'] = rtrim($tag,',');				
@@ -411,7 +424,7 @@ class IndexAction extends CommonAction {
 	
 		//得到该用户下面使用过的标签
 		$TagsModel = D('Tags');
-		$tag_list = $TagsModel->field('id,tag')->where($where)->limit(45)->order('id desc')->select();
+		$tag_list = $TagsModel->field('id,tag')->order('datetime desc')->select();
 	
 	
 		//调用Commom/right_slide 			获得所有的分类列表

@@ -35,13 +35,17 @@ $(document).ready(function(){
 //填充空白
 function fillBlank(extraHeight)
 {
-	var height = parseInt($(document).height()) - parseInt($("#header").height()) - parseInt($("#footer").height()) - parseInt($("#footer").css('margin-bottom'));
-	if(typeof extraHeight != 'undefined')
- 	{
- 		height = parseInt($("#wrap_body").height()) + parseInt(extraHeight);
- 	}
-	$('#rightSlide').css('height',height);
- 	$('#wrap_body').css('height',height);
+  var bodyHeight = parseInt($('#wrap_body').height());
+  var slideHeight = parseInt($('#rightSlide').height());
+	if(slideHeight > bodyHeight)
+  {
+      $('#rightSlide').css('height',slideHeight);
+      $('#wrap_body').css('height',slideHeight);
+  }
+  else
+  {
+     $('#rightSlide').css('height','100%');
+  }
 }
 
 //comment reply @name
