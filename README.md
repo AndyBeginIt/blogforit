@@ -1,7 +1,7 @@
 blogforit
 =========
 
-这个项目是指sinaapp上面开发的，网站地址：http://blogforit.sinaapp.com/ <br/>
+这个项目是指sinaapp上面使用Thinkphp开发的，网站地址：http://blogforit.sinaapp.com/ <br/>
 
 Notice & Remember : 
 <p>
@@ -77,11 +77,15 @@ $ /usr/local/coreseek/bin/searchd -c /usr/local/coreseek/etc/sphinx.conf
 </p>
 
 <p>
-3.在账号设置里面的头像上传，使用了ajaxfileupload.js，从而达到了无跳转上传。
+3.使用了ajaxfileupload.js
 </p>
 
 <p>
-4.在站内搜索，我使用了Google Auto Complete。实现代码文件在/Tpl/Home/Default/Public/top
+4.在站内搜索，我使用了Google Auto Complete。实现代码文件在/Tpl/Home/Default/Public/top .
+</p>
+
+<p>
+5.结合ckeditor和代码高亮插件SyntaxHighlighter作为editor .
 </p>
 
 <pre>
