@@ -2,6 +2,7 @@ blogforit
 =========
 
 这个项目是指sinaapp上面使用Thinkphp开发的，网站地址：http://blogforit.sinaapp.com/ <br/>
+
 Notice & Remember : 
 <p>
 1.查看博客文章(View/index)的时候，第一次查看我们从数据库取出数据，第二次我们就从memcache里面取数据。
