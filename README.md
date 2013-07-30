@@ -83,3 +83,23 @@ $ /usr/local/coreseek/bin/searchd -c /usr/local/coreseek/etc/sphinx.conf
 <p>
 4.在站内搜索，我使用了Google Auto Complete。实现代码文件在/Tpl/Home/Default/Public/top
 </p>
+
+<pre>
+附录：一些配置启动项
+$ sudo vim /etc/rc.local
+
+#[set IP]
+$ ifconfig eth0:1 192.168.0.130 broadcast 192.168.0.255 netmask 255.255.255.0 up
+$ route add -host 192.168.0.130 dev eth0:1
+
+#[start memcache]
+$ /usr/bin/memcached -m 64 -p 11211 -u memcache -l 127.0.0.1
+
+#[start svn]
+$ sudo svnserve -d -r /home/xiaozhe/svn
+
+#[start sphinx]
+$ sudo /usr/local/coreseek/bin/indexer -c /usr/local/coreseek/etc/sphinx.conf --all
+$ sudo /usr/local/coreseek/bin/searchd -c /usr/local/coreseek/etc/sphinx.conf 
+
+</pre>
