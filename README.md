@@ -21,6 +21,7 @@ memcache.hash_strategy = 'standard'
 memcache.hash_function = 'crc32'
 </pre>
 
+
 * Sphinx , Coreseek
 
 网站搜索采用的是Coreseek中文检索引擎进行分词搜索。注意要首先生成索引，然后进行服务端开启。
@@ -79,17 +80,8 @@ $ /usr/local/coreseek/bin/searchd -c /usr/local/coreseek/etc/sphinx.conf
 </pre>
 
 
-<p>
-3.使用了ajaxfileupload.js
-</p>
-
-<p>
-4.在站内搜索，我使用了Google Auto Complete。实现代码文件在/Tpl/Home/Default/Public/top .
-</p>
-
-<p>
-5.结合ckeditor和代码高亮插件SyntaxHighlighter作为editor .
-</p>
+CONFIGURATION
+----------------
 
 <pre>
 附录：一些配置启动项
