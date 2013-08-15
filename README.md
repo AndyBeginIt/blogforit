@@ -6,7 +6,7 @@ blogforit
 NOTICE
 ------------
 
-* Memcache
+* *Memcache*
 
 查看博客文章(View/index)的时候，第一次查看我们从数据库取出数据，第二次我们就从memcache里面取数据。
 $ sudo apt-get install php5-memcache  memcached . (具体配置文件请查看README_CONFIG)
@@ -22,7 +22,7 @@ memcache.hash_function = 'crc32'
 </pre>
 
 
-* Sphinx , Coreseek
+* *Sphinx , Coreseek*
 
 网站搜索采用的是Coreseek中文检索引擎进行分词搜索。注意要首先生成索引，然后进行服务端开启。
 (注意，这里我还要使用一个Tags标签的搜索，所以可以按照sphinx.conf从新写个tags.conf,
