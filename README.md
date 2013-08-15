@@ -1,14 +1,15 @@
 blogforit
 =========
 
-这个项目是指sinaapp上面使用Thinkphp开发的，网站地址：http://blogforit.sinaapp.com/ <br/>
+这个项目是指sinaapp上面使用Thinkphp开发的，网站地址：http://blogforit.sinaapp.com/ 
 
-Notice & Remember : 
-<p>
+NOTICE
+------------
+
 1.查看博客文章(View/index)的时候，第一次查看我们从数据库取出数据，第二次我们就从memcache里面取数据。
 $ sudo apt-get install php5-memcache  memcached . (具体配置文件请查看README_CONFIG)
 将CacheMemcache类放在了ORG.Util目录下面方便导入。
-<pre>
+
 [php.ini中memcache配置]
 memcache.allow_failover = on
 memcache.max_failover_attempts = 20
@@ -16,8 +17,8 @@ memcache.chunk_size = 8192
 memcache.default_port = 11211
 memcache.hash_strategy = 'standard'
 memcache.hash_function = 'crc32'
-</pre>
-</p>
+
+
 
 <p>
 2.网站搜索采用的是Coreseek中文检索引擎进行分词搜索。注意要首先生成索引，然后进行服务端开启。
